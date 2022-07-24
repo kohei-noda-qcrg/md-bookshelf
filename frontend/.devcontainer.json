@@ -1,0 +1,14 @@
+{
+    "name": "frontend",
+    "dockerComposeFile": "../compose.yml",
+    "service": "frontend",
+    "workspaceFolder": "/frontend",
+    "settings": {
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "/bin/bash"
+            }
+        }
+    },
+    "shutdownAction": "stopCompose"
+}
