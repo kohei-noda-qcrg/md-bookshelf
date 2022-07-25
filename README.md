@@ -8,5 +8,5 @@ cd md-bookshelf
 cd frontend && npm i && cd ../backend && npm i && docker compose up -d
 ```
 
-You can access the web client server at http://localhost:3000/
-You can access the backend server at http://localhost:5000/
+You can access the web client server at http://localhost:3000/  
+And you can access the backend server at http://localhost:5000/
