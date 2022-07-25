@@ -3,7 +3,7 @@
 ## How to use
 
 ```sh
-git clone https://gihub.com/kohei-noda-qcrg/md-bookshelf.git
+git clone https://github.com/kohei-noda-qcrg/md-bookshelf.git
 cd md-bookshelf
 docker compose up -d
 ```
