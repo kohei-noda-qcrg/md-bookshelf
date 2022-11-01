@@ -1,15 +1,21 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Modal from "../components/modal";
 import Posts from "../components/posts";
 import fs from "fs";
 import path from "path";
-import { IPosts } from "../types/posts";
+import {IPost} from "../types/post";
+import {IPosts} from "../types/posts";
 
-
-const Home: NextPage<IPosts> = ({ posts }) => {
+const Home: NextPage = (posts) => {
   return (
     <>
-      <Posts posts={posts} />
+      {posts.posts.map((post: IPost) =>
+        <>
+        <p>{post.id}</p>
+        <p>{post.title}</p>
+        <p>{post.content}</p>
+        </>
+      )}
       <Modal />
     </>
   );
@@ -17,15 +23,14 @@ const Home: NextPage<IPosts> = ({ posts }) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = fs.readdirSync(path.join("posts"), "utf-8");
-  const posts = res.map((post) => {
-    const slug = post.replace(/\.md$/, "");
-    console.log(slug);
-    return slug;
-  });
-  console.log("posts", posts);
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await fetch("http://localhost:5000/markdowns").then(response => response.json());
+  console.log('res',res);
+  const posts = JSON.parse(JSON.stringify(res));
+  console.log('posts',posts);
   return {
-    props: { posts },
+    props: {
+      posts
+    },
   };
-};
+}
