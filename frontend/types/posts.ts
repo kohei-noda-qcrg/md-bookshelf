@@ -1,3 +1,4 @@
+import {IPost} from './post';
 export interface IPosts {
-    posts: string[];
+    posts: IPost[];
 }
