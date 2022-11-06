@@ -1,9 +1,33 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { useRef } from "react";
 import Modal from "../components/modal";
 import { IPost } from "../types/post";
 import { IPosts } from "../types/posts";
 
 const Home: NextPage<IPosts> = (props) => {
+
+  const inputTitleRef = useRef<HTMLInputElement>(null);
+  const inputContentRef = useRef<HTMLTextAreaElement>(null);
+
+  const createNewPost = () => {
+    console.log("create new post");
+    const url = "http://localhost:5000/markdowns";
+    const data = {
+      title: inputTitleRef.current?.value,
+      content: inputContentRef.current?.value,
+    };
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+
+  }
   return (
     <>
       {props.posts.map((post: IPost) =>
@@ -13,6 +37,10 @@ const Home: NextPage<IPosts> = (props) => {
           <p>{post.content}</p>
         </>
       )}
+      <input type="text" id="inputTitle" ref={inputTitleRef} />
+      <br />
+      <textarea id="inputContent" ref={inputContentRef} />
+      <button onClick={createNewPost}>Create a new post</button>
       <Modal />
     </>
   );
