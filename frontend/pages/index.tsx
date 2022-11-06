@@ -3,10 +3,10 @@ import Modal from "../components/modal";
 import { IPost } from "../types/post";
 import { IPosts } from "../types/posts";
 
-const Home: NextPage<IPosts> = (posts) => {
+const Home: NextPage<IPosts> = (props) => {
   return (
     <>
-      {posts.post.map((post: IPost) =>
+      {props.posts.map((post: IPost) =>
         <>
           <p>{post.id}</p>
           <p>{post.title}</p>
@@ -20,7 +20,7 @@ const Home: NextPage<IPosts> = (posts) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch("http://localhost:5000/markdowns").then(response => response.json());
   console.log('res', res);
   const posts = JSON.parse(JSON.stringify(res));
